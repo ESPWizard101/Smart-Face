@@ -1,8 +1,24 @@
-set(SOURCE
-    src/main.cpp
-    src/Display.cppS
-    )   
+idf_component_register(
+    SRCS
+        "src/main.cpp"
+        "src/App.cpp"
+        "src/MotionTask.cpp"
+        "src/MotionEstimator.cpp"
+        "src/FaceTask.cpp"
+        "src/Face.cpp"
+        "src/Mood.cpp"
+    INCLUDE_DIRS "Inc"
+    PRIV_REQUIRES
+        mpu6050
+        sh1106
+        gfx
+        esp_driver_i2c
+        esp_driver_spi
+        esp_driver_gpio
+        esp_timer
+        esp_hw_support
+        freertos
+        log
+)
 
-idf_component_register(SRCS "main.cpp"
-                        PRIV_REQUIRES driver log freertos esp_timer esp_system esp_app_format nvs_flash
-                    INCLUDE_DIRS ".")
+target_compile_options(${COMPONENT_LIB} PRIVATE -Wall -Wextra -Wshadow)
