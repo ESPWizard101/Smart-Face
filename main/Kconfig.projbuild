@@ -1,0 +1,77 @@
+menu "Smart Face"
+
+    menu "MPU6050 (I2C)"
+        config SMARTFACE_I2C_SDA_GPIO
+            int "SDA GPIO"
+            range 0 33
+            default 21
+
+        config SMARTFACE_I2C_SCL_GPIO
+            int "SCL GPIO"
+            range 0 33
+            default 22
+
+        config SMARTFACE_I2C_FREQ_HZ
+            int "I2C clock (Hz)"
+            range 100000 400000
+            default 400000
+
+        config SMARTFACE_I2C_INTERNAL_PULLUPS
+            bool "Enable internal pull-ups on SDA/SCL"
+            default y
+            help
+                The ESP32 internal pull-ups are weak (~45 kOhm). Most MPU6050 breakout boards
+                already have 4.7 kOhm pull-ups; leaving these enabled as well is harmless.
+
+        config SMARTFACE_MPU6050_AD0_HIGH
+            bool "MPU6050 AD0 pin is tied high (address 0x69)"
+            default n
+    endmenu
+
+    menu "SH1106 display (SPI)"
+        config SMARTFACE_DISPLAY_SCLK_GPIO
+            int "SCLK GPIO (module pin D0/SCK)"
+            range 0 33
+            default 18
+
+        config SMARTFACE_DISPLAY_MOSI_GPIO
+            int "MOSI GPIO (module pin D1/SDA)"
+            range 0 33
+            default 23
+
+        config SMARTFACE_DISPLAY_CS_GPIO
+            int "CS GPIO"
+            range 0 33
+            default 5
+
+        config SMARTFACE_DISPLAY_DC_GPIO
+            int "DC GPIO"
+            range 0 33
+            default 16
+
+        config SMARTFACE_DISPLAY_RESET_GPIO
+            int "RES GPIO (-1 if not connected)"
+            range -1 33
+            default 17
+
+        config SMARTFACE_DISPLAY_CLOCK_HZ
+            int "SPI clock (Hz)"
+            range 1000000 10000000
+            default 8000000
+
+        config SMARTFACE_DISPLAY_ROTATE_180
+            bool "Rotate display 180 degrees"
+            default n
+
+        config SMARTFACE_DISPLAY_CONTRAST
+            int "Contrast while awake"
+            range 1 255
+            default 207
+
+        config SMARTFACE_DISPLAY_SLEEP_CONTRAST
+            int "Contrast while the face is asleep"
+            range 1 255
+            default 8
+    endmenu
+
+endmenu
